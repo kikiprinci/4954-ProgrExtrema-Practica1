@@ -27,7 +27,7 @@ public class GameView extends SubView {
 	}
 
     private void writeNumbersLine(final int DIMENSION) {
-        this.console.write(" ");
+        this.console.write(MessageView.EMPTY.getMessage());
         for(int i=0; i<DIMENSION; i++){
             this.console.write((i+1)+"");
         }
