@@ -6,14 +6,12 @@ import es.urjccode.mastercloudapps.adcs.draughts.models.Coordinate;
 
 public class PlayView extends SubView {
 
-    private static final String[] COLORS = { "blancas", "negras" };
-
     public PlayView() {
         super();
     }
 
     public void interact(PlayController playController) {
-        String color = PlayView.COLORS[playController.getColor().ordinal()];
+        String color = MessageView.COLORS[playController.getColor().ordinal()];
         Error error = null;
         GameView gameView = new GameView();
         do {

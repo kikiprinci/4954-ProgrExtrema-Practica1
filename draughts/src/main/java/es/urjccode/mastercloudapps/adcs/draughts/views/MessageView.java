@@ -6,6 +6,8 @@ public enum MessageView {
     ERROR("Error!!!"),MOVE("Mueven las "),EMPTY(" "),COLON(": ");
 
     private String message;
+    public static final String[] COLORS = { "blancas", "negras" };
+    public static final String[] COLORS_SHORT = new String[]{"b", "n", " "};
 
     private MessageView(String message) {
         this.message = message;
