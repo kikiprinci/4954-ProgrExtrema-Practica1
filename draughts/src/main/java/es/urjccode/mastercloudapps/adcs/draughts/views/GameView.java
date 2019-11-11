@@ -13,11 +13,7 @@ public class GameView extends SubView {
             this.console.write((i + 1) + "");
             for (int j = 0; j < DIMENSION; j++) {
                 Color color = controller.getColor(new Coordinate(i, j));
-                if (color == null) {
-                    this.console.write(MessageView.COLORS_SHORT[2]);
-                } else {
-                    this.console.write(MessageView.COLORS_SHORT[color.ordinal()]);
-                }
+                this.console.write(checkColorResult(color));
             }
             this.console.writeln((i + 1) + "");
         }
@@ -30,6 +26,14 @@ public class GameView extends SubView {
             this.console.write((i + 1) + "");
         }
         this.console.writeln();
+    }
+
+    private String checkColorResult(Color color) {
+        if (color == null) {
+            return MessageView.COLORS_SHORT[2];
+        } else {
+            return MessageView.COLORS_SHORT[color.ordinal()];
+        }
     }
 
 }
