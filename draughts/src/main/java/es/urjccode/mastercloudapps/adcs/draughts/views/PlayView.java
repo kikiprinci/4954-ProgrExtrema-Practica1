@@ -20,10 +20,8 @@ public class PlayView extends SubView {
 
             String command = this.console
                     .readString(MessageView.MOVE.getMessage() + color + MessageView.COLON.getMessage());
-            int origin = Integer.parseInt(command.substring(0, 2));
-            int target = Integer.parseInt(command.substring(3, 5));
-            error = playController.move(new Coordinate(origin / 10 - 1, origin % 10 - 1),
-                    new Coordinate(target / 10 - 1, target % 10 - 1));
+            error = playController.move(new Coordinate(command.substring(0, 2)),
+                    new Coordinate(command.substring(3, 5)));
             if (error != null) {
                 console.writeln(MessageView.ERROR.getMessage() + error.name());
                 gameView.write(playController);
