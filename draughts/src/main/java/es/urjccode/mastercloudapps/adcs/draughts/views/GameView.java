@@ -4,7 +4,7 @@ import es.urjccode.mastercloudapps.adcs.draughts.controllers.Controller;
 import es.urjccode.mastercloudapps.adcs.draughts.models.Color;
 import es.urjccode.mastercloudapps.adcs.draughts.models.Coordinate;
 
-public class GameView extends SubView {
+public class GameView extends WithConsoleView {
 
     public void write(Controller controller) {
         final int DIMENSION = controller.getDimension();
