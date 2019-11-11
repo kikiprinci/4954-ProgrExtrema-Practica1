@@ -9,6 +9,10 @@ public class Game {
 	public Game() {
 		this.turn = new Turn();
 		this.board = new Board();
+		initGame();
+	}
+
+	private void initGame() {
 		for (int i = 0; i < this.board.getDimension(); i++) {
 			for (int j = 0; j < this.board.getDimension(); j++) {
 				Coordinate coordinate = new Coordinate(i, j);

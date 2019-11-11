@@ -11,6 +11,10 @@ class Board {
 
     Board() {
         this.squares = new Square[this.getDimension()][this.getDimension()];
+        initBoard();
+    }
+
+    private void initBoard() {
         for (int i = 0; i < this.getDimension(); i++) {
             for (int j = 0; j < this.getDimension(); j++) {
                 this.squares[i][j] = new Square();
