@@ -24,6 +24,14 @@ public class Game {
 		}
 	}
 
+	public Board getBoard() {
+		return this.board;
+	}
+
+	public Turn getTurn() {
+		return this.turn;
+	}
+
 	private Piece getInitialPiece(Coordinate coordinate) {
 		if (coordinate.isBlack()) {
 			final int row = coordinate.getRow();
@@ -42,64 +50,52 @@ public class Game {
 
 	public Error move(Coordinate origin, Coordinate target) {
 		assert origin != null && target != null;
-		if (!origin.isValid() || !target.isValid()) {
-			return Error.OUT_COORDINATE;
+		Validations validations = new Validations(this);
+		Error error = validations.validateMovements(origin, target);
+		error = validations.validateMovements(origin, target);
+		return checkValidations(error, origin, target);
+	}
+
+	private Error checkValidations(Error error, Coordinate origin, Coordinate target) {
+		if (error == null) {
+			this.getBoard().move(origin, target);
+			this.getTurn().change();
+			return null;
 		}
-		if (board.isEmpty(origin)) {
-			return Error.EMPTY_ORIGIN;
-		}
-		Color color = this.board.getColor(origin);
-		if (this.turn.getColor() != color) {
-			return Error.OPPOSITE_PIECE;
-		}
-		if (!origin.isDiagonal(target)) {
-			return Error.NOT_DIAGONAL;
-		}
-		Piece piece = this.board.getPiece(origin);
-		if (!piece.isAdvanced(origin, target)) {
-			return Error.NOT_ADVANCED;
-		}
-		if (origin.diagonalDistance(target) >= 3) {
-			return Error.BAD_DISTANCE;
-		}
-		if (!this.board.isEmpty(target)) {
-			return Error.NOT_EMPTY_TARGET;
-		}
-		if (origin.diagonalDistance(target) == 2) {
-			Coordinate between = origin.betweenDiagonal(target);
-			if (this.board.getPiece(between) == null) {
-				return Error.EATING_EMPTY;
-			}
-			this.board.remove(between);
-		}
-		this.board.move(origin, target);
-		this.turn.change();
-		return null;
+		return error;
+	}
+
+	public Piece remove(Coordinate coordinate) {
+		return this.getBoard().remove(coordinate);
+	}
+
+	public boolean isEmpty(Coordinate coordinate) {
+		return this.getBoard().isEmpty(coordinate);
 	}
 
 	public Color getColor(Coordinate coordinate) {
-		return this.board.getColor(coordinate);
+		return this.getBoard().getColor(coordinate);
 	}
 
 	@Override
 	public String toString() {
-		return this.board + "\n" + this.turn;
+		return this.getBoard() + "\n" + this.turn;
 	}
 
 	public Color getColor() {
-		return this.turn.getColor();
+		return this.getTurn().getColor();
 	}
 
 	public Piece getPiece(Coordinate coordinate) {
-		return this.board.getPiece(coordinate);
+		return this.getBoard().getPiece(coordinate);
 	}
 
 	public boolean isBlocked() {
-		return this.board.getPieces(this.turn.getColor()).isEmpty();
+		return this.getBoard().getPieces(this.turn.getColor()).isEmpty();
 	}
 
 	public int getDimension() {
-		return this.board.getDimension();
+		return this.getBoard().getDimension();
 	}
 
 }
